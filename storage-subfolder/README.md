@@ -9,8 +9,8 @@ export PROJECT_ID="$(gcloud config get-value project)"
 export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
 
 export REGION='us-east1'
-export SERVICE='eda1-$PROJECT_ID-service'
-export BUCKET='gs://eda1-$PROJECT_ID'
+export SERVICE=eda1-$PROJECT_ID-service
+export BUCKET=gs://eda1-$PROJECT_ID
 export IN_FOLDER='eda1-inbound'
 export OUT_FOLDER='eda1-outbound'
 ```
@@ -23,11 +23,11 @@ gcloud services enable run.googleapis.com cloudbuild.googleapis.com iamcredentia
 
 ### Grant IAM Permissions
 ```
-gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com" --role roles/eventarc.eventReceiver
+gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com --role roles/eventarc.eventReceiver
 
-gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:service-$PROJECT_NUMBER@gs-project-accounts.iam.gserviceaccount.com" --role roles/pubsub.publisher
+gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:service-$PROJECT_NUMBER@gs-project-accounts.iam.gserviceaccount.com --role roles/pubsub.publisher
 
-gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com" --role roles/iam.serviceAccountTokenCreator
+gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com --role roles/iam.serviceAccountTokenCreator
 ```
 
 ### Deploy the code
@@ -53,4 +53,12 @@ gcloud eventarc triggers create dt-table-uptd-trigger \
  --event-filters="methodName=storage.objects.create" \
  --event-filters-path-pattern="resourceName=/projects/_/buckets/$BUCKET/objects/$IN_FOLDER/*" \
  --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com
+```
+
+### Test the trigger
+```
+touch eda1-test
+gsutil cp ~/eda1-test $BUCKET/$IN_FOLDER/eda1-test
+gcloud alpha run services logs read $SERVICE \
+--region $REGION --limit=100 --format "value(log)"
 ```
