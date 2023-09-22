@@ -45,5 +45,12 @@ gsutil mb -l $REGION $BUCKET/${IN_FOLDER}
 
 ### Create an Eventarc trigger
 ```
-gcloud eventarc triggers create dt-table-uptd-trigger --location=$REGION--destination-run-service=dt-table-uptd-service --destination-run-region=$REGION --event-filters="type=google.cloud.audit.log.v1.written" --event-filters="serviceName=storage.googleapis.com" --event-filters="methodName=storage.objects.create" --event-filters-path-pattern="resourceName=/projects/_/buckets/$BUCKET/objects/$IN_FOLDER/*" --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com
+gcloud eventarc triggers create dt-table-uptd-trigger \
+ --location=$REGION--destination-run-service=dt-table-uptd-service \
+ --destination-run-region=$REGION \
+ --event-filters="type=google.cloud.audit.log.v1.written" \
+ --event-filters="serviceName=storage.googleapis.com" \
+ --event-filters="methodName=storage.objects.create" \
+ --event-filters-path-pattern="resourceName=/projects/_/buckets/$BUCKET/objects/$IN_FOLDER/*" \
+ --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com
 ```
