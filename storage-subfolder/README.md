@@ -58,6 +58,6 @@ gcloud eventarc triggers create dt-table-uptd-trigger \
 ### Test the trigger
 ```
 touch eda1-test
-gsutil cp ~/eda1-test $BUCKET/$IN_FOLDER/eda1-test
+gsutil cp ./eda1-test $BUCKET/$IN_FOLDER/eda1-test
 gcloud beta run services logs tail $SERVICE --project $PROJECT_ID
 ```
