@@ -9,7 +9,7 @@ export PROJECT_ID="$(gcloud config get-value project)"
 export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
 
 export REGION='us-east1'
-export SERVICE='eda1-$PROJECT_ID-service'_
+export SERVICE='eda1-$PROJECT_ID-service'
 export BUCKET='gs://eda1-$PROJECT_ID'
 export IN_FOLDER='eda1-inbound'
 export OUT_FOLDER='eda1-outbound'
