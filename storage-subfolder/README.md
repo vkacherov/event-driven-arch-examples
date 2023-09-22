@@ -1,5 +1,5 @@
 # Cloud Storage subfolder example
-This example show how to setup an event listener for a Google Cloud Storage bucket that matches object creation in the specific subfolder.
+This example show how to setup an [Eventarc](https://cloud.google.com/eventarc) listener for a Google Cloud Storage bucket to trigger on object creation in a specific subfolder.
 
 ## Setup
 ### Local Environment settings
