@@ -34,7 +34,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:servi
 ### Deploy the code
 This will scan the source code in the current directory, build it into a production-ready container image using [Cloud Build](https://cloud.google.com/build) & [Google Cloud's buildpacks](https://cloud.google.com/docs/buildpacks/overview), store the resulting image in the [Artifact Registry](https://cloud.google.com/artifact-registry) and lastly deploy it to [Cloud Run](https://cloud.google.com/run).
 
-Change into the event-driven-arch-examples/storage-subfolder directory and run the deploy from source command:
+Change into the ```event-driven-arch-examples/storage-subfolder``` directory and run the deploy from source command:
 ```
 gcloud run deploy $SERVICE --source .
 ```
