@@ -2,32 +2,31 @@ import os
 
 from flask import Flask, request
 
-from cloudevents.http import from_http
+from google.events.cloud import storage
 
 app = Flask(__name__)
 
 # Triggered by a change in a storage bucket
 @app.route("/", methods=["POST"])
 def index():
-    cloud_event = from_http(request.headers, request.data)
-    data = request.data
+    print(request.json)
+    data = request.json
 
-    event_id = cloud_event["id"]
-    event_type = cloud_event["type"]
+    methodName = data["protoPayload"]["methodName"]
+    insertId = data["insertId"]
+    bucketName = data["resource"]["labels"]["bucket_name"]
+    fileName = data["protoPayload"]["resourceName"]
+    requestMetadata = data["protoPayload"]["requestMetadata"]
+    timeCreated = data["protoPayload"]["requestMetadata"]["requestAttributes"]["time"]
 
-    bucketName = data["bucket"]
-    fileName = data["name"]
-    metageneration = data["metageneration"]
-    timeCreated = data["timeCreated"]
-    updated = data["updated"]
-
-    print(f"Event ID: {event_id}")
-    print(f"Event type: {event_type}")
+    print(f"Event ID: {insertId}")
+    print(f"Event type: {methodName}")
     print(f"Bucket: {bucketName}")
     print(f"File: {fileName}")
-    print(f"Metageneration: {metageneration}")
+    print(f"requestMetadata: {requestMetadata}")
     print(f"Created: {timeCreated}")
-    print(f"Updated: {updated}")
+
+    return(f"Finished reading file!", 200)
 
     # Create a Cloud Storage client
     #storage_client = storage.Client()
