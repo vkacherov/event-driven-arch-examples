@@ -39,3 +39,6 @@ def main(cloud_event):
 
     # Print the file contents
     #print(file_contents)
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
