@@ -36,7 +36,7 @@ This will scan the source code in the current directory, build it into a product
 
 Change into the ```event-driven-arch-examples/storage-subfolder``` directory and run the deploy from source command:
 ```
-gcloud run deploy $SERVICE --source .
+gcloud run deploy $SERVICE --region $REGION --no-allow-unauthenticated --source .
 ```
 
 ### Setup the GCS Bucket and folders
@@ -54,7 +54,8 @@ gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
 ### Create an Eventarc trigger
 ```
 gcloud eventarc triggers create dt-table-uptd-trigger \
- --location=$REGION--destination-run-service=$SERVICE \
+ --location=$REGION \
+ --destination-run-service=$SERVICE \
  --destination-run-region=$REGION \
  --event-filters="type=google.cloud.audit.log.v1.written" \
  --event-filters="serviceName=storage.googleapis.com" \
