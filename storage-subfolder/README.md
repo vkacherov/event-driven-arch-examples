@@ -3,17 +3,18 @@ This example shows how to setup an [Eventarc](https://cloud.google.com/eventarc)
 
 ## Setup
 ### Local Environment settings
-Change the BUCKET_NAME and REGION as you need:
+Change the EXAMPLE_ID, BUCKET_NAME and REGION as you need:
 ```
 export PROJECT_ID="$(gcloud config get-value project)"
 export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
 
 export REGION='us-east1'
 export SERVICE=eda1-$PROJECT_ID-service
-export BUCKET_NAME=eda1-$PROJECT_ID
+export EXAMPLE_ID='eda1'
+export BUCKET_NAME=$EXAMPLE_ID-$PROJECT_ID
 export BUCKET=gs://$BUCKET_NAME
-export IN_FOLDER='eda1-inbound'
-export OUT_FOLDER='eda1-outbound'
+export IN_FOLDER=$EXAMPLE_ID-inbound
+export OUT_FOLDER=EXAMPLE_ID-outbound
 ```
 
 ### Enable GCP APIs
@@ -53,7 +54,7 @@ gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
 
 ### Create an Eventarc trigger
 ```
-gcloud eventarc triggers create dt-table-uptd-trigger \
+gcloud eventarc triggers create $EXAMPLE_ID-trigger \
  --location=$REGION \
  --destination-run-service=$SERVICE \
  --destination-run-region=$REGION \
@@ -66,7 +67,7 @@ gcloud eventarc triggers create dt-table-uptd-trigger \
 
 ### Test the trigger
 ```
-touch eda1-test
-gsutil cp ./eda1-test $BUCKET/$IN_FOLDER/eda1-test
+touch $EXAMPLE_ID-test
+gsutil cp ./$EXAMPLE_ID-test $BUCKET/$IN_FOLDER/$EXAMPLE_ID-test
 gcloud beta run services logs tail $SERVICE --project $PROJECT_ID
 ```
