@@ -46,7 +46,7 @@ gsutil mb -l $REGION $BUCKET/${IN_FOLDER}
 ### Create an Eventarc trigger
 ```
 gcloud eventarc triggers create dt-table-uptd-trigger \
- --location=$REGION--destination-run-service=dt-table-uptd-service \
+ --location=$REGION--destination-run-service=$SERVICE \
  --destination-run-region=$REGION \
  --event-filters="type=google.cloud.audit.log.v1.written" \
  --event-filters="serviceName=storage.googleapis.com" \
