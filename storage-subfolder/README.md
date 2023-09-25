@@ -1,5 +1,7 @@
-# Cloud Storage subfolder example
+# Cloud Storage subfolder listener example
 This example shows how to setup an [Eventarc](https://cloud.google.com/eventarc) listener for a Google Cloud Storage bucket to trigger on object creation in a specific subfolder.
+
+<img src="../images/Cloud_Storage_Subfolder_Trigger.png">
 
 ## Setup
 ### Local Environment settings
@@ -16,7 +18,7 @@ export BUCKET=gs://$BUCKET_NAME
 export IN_FOLDER=$EXAMPLE_ID-inbound
 export OUT_FOLDER=EXAMPLE_ID-outbound
 ```
-### gcloud CLI 
+### gcloud CLI
 Make sure you have the latest ```gcloud``` SDK and components
 ```
 gcloud components update
@@ -71,7 +73,7 @@ gcloud eventarc triggers create $EXAMPLE_ID-trigger \
 ```
 
 ### Test the trigger
-We will use the gcloud log_streaming component to stream the service logs (this job will run in the background because of ```&``` at the end of our command), you will be prompted to install it if haven't already. 
+We will use the gcloud log_streaming component to stream the service logs (this job will run in the background because of ```&``` at the end of our command), you will be prompted to install it if haven't already.
 ```
 gcloud beta run services logs tail $SERVICE --region $REGION --project $PROJECT_ID &
 ```
