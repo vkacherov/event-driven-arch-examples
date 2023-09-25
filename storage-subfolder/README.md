@@ -36,7 +36,7 @@ This will scan the source code in the current directory, build it into a product
 
 Change into the ```event-driven-arch-examples/storage-subfolder``` directory and run the deploy from source command:
 ```
-gcloud run deploy $SERVICE --source .
+gcloud run deploy $SERVICE --region $REGION --no-allow-unauthenticated --source .
 ```
 
 ### Setup the GCS Bucket and folders
