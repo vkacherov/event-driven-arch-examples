@@ -16,7 +16,7 @@ export SERVICE=$EXAMPLE_ID-$PROJECT_ID-service
 export BUCKET_NAME=$EXAMPLE_ID-$PROJECT_ID
 export BUCKET=gs://$BUCKET_NAME
 export IN_FOLDER=$EXAMPLE_ID-inbound
-export OUT_FOLDER=EXAMPLE_ID-outbound
+export OUT_FOLDER=$EXAMPLE_ID-outbound
 ```
 ### gcloud CLI
 Make sure you have the latest ```gcloud``` SDK and components
