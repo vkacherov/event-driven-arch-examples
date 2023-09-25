@@ -1,4 +1,5 @@
-import functions_framework
+import os
+
 from google.cloud import storage
 from flask import Flask
 
@@ -6,7 +7,6 @@ app = Flask(__name__)
 
 @app.route("/")
 # Triggered by a change in a storage bucket
-@functions_framework.cloud_event
 def main(cloud_event):
     data = cloud_event.data
 
