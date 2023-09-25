@@ -1,14 +1,16 @@
 import os
 
-from google.cloud import storage
-from flask import Flask
+from flask import Flask, request
+
+from cloudevents.http import from_http
 
 app = Flask(__name__)
 
-@app.route("/")
 # Triggered by a change in a storage bucket
-def main(cloud_event):
-    data = cloud_event.data
+@app.route("/", methods=["POST"])
+def index():
+    cloud_event = from_http(request.headers, request.data)
+    data = request.data
 
     event_id = cloud_event["id"]
     event_type = cloud_event["type"]
