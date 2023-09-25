@@ -16,6 +16,11 @@ export BUCKET=gs://$BUCKET_NAME
 export IN_FOLDER=$EXAMPLE_ID-inbound
 export OUT_FOLDER=EXAMPLE_ID-outbound
 ```
+### gcloud CLI 
+Make sure you have the latest ```gcloud``` SDK and components
+```
+gcloud components update
+```
 
 ### Enable GCP APIs
 ```
@@ -66,8 +71,32 @@ gcloud eventarc triggers create $EXAMPLE_ID-trigger \
 ```
 
 ### Test the trigger
+We will use the gcloud log_streaming component to stream the service logs (this job will run in the background because of ```&``` at the end of our command), you will be prompted to install it if haven't already. 
+```
+gcloud beta run services logs tail $SERVICE --region $REGION --project $PROJECT_ID &
+```
+
+Create a file to test with
 ```
 touch $EXAMPLE_ID-test
-gsutil cp ./$EXAMPLE_ID-test $BUCKET/$IN_FOLDER/$EXAMPLE_ID-test
-gcloud beta run services logs tail $SERVICE --project $PROJECT_ID
 ```
+
+First, let's do a negative test: copy the file into the root of the folder and make sure our code is NOT triggered (no new service logs should be visible in the terminal)
+```
+gsutil cp ./$EXAMPLE_ID-test $BUCKET/$EXAMPLE_ID-test
+```
+
+Now, the REAL test: copy the file into the IN_FOLDER
+```
+gsutil cp ./$EXAMPLE_ID-test $BUCKET/$IN_FOLDER/$EXAMPLE_ID-test
+```
+
+### Clean up
+Delete the Eventarc trigger, the Cloud Run service and the Cloud Storage bucket
+```
+gcloud eventarc triggers delete $EXAMPLE_ID-trigger --location $REGION
+gcloud run services delete $SERVICE --region $REGION
+gsutil -m rm -r $BUCKET
+```
+
+
