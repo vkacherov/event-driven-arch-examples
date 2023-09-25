@@ -3,14 +3,15 @@ This example shows how to setup an [Eventarc](https://cloud.google.com/eventarc)
 
 ## Setup
 ### Local Environment settings
-Change the BUCKET name and REGION as you need:
+Change the BUCKET_NAME and REGION as you need:
 ```
 export PROJECT_ID="$(gcloud config get-value project)"
 export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
 
 export REGION='us-east1'
 export SERVICE=eda1-$PROJECT_ID-service
-export BUCKET=gs://eda1-$PROJECT_ID
+export BUCKET_NAME=eda1-$PROJECT_ID
+export BUCKET=gs://$BUCKET_NAME
 export IN_FOLDER='eda1-inbound'
 export OUT_FOLDER='eda1-outbound'
 ```
@@ -51,7 +52,7 @@ gcloud eventarc triggers create dt-table-uptd-trigger \
  --event-filters="type=google.cloud.audit.log.v1.written" \
  --event-filters="serviceName=storage.googleapis.com" \
  --event-filters="methodName=storage.objects.create" \
- --event-filters-path-pattern="resourceName=/projects/_/buckets/$BUCKET/objects/$IN_FOLDER/*" \
+ --event-filters-path-pattern="resourceName=/projects/_/buckets/$BUCKET_NAME/objects/$IN_FOLDER/*" \
  --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com
 ```
 
