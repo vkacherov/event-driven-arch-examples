@@ -51,11 +51,13 @@ gcloud run deploy $SERVICE --region $REGION --no-allow-unauthenticated --source 
 ```
 
 ### Setup the GCS Bucket and folders
+Cloud Storage operates with a flat namespace, which means that [folders don't actually exist](https://cloud.google.com/storage/docs/folders#:~:text=in%20Cloud%20Storage.-,Overview,%2Dbucket%2Ffolder1%2Ffile.) within Cloud Storage. If you create an object named folder1/file.txt in the bucket your-bucket, the path to the object is your-bucket/folder1/file.txt, but there is no folder named folder1; instead, the string folder1 is part of the object's name.
+
 ```
 gsutil mb -l $REGION $BUCKET
 ```
 
-Create the required folder (an easy way to do this is to copy a file into the new folder, GCS will create the folder if it does not already exist)
+Create the required folder:
 ```
 touch tmp.txt
 gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
