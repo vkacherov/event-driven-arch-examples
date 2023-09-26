@@ -82,7 +82,7 @@ gcloud eventarc triggers create $EXAMPLE_ID-trigger \
 ```
 
 ### Test the trigger
-We will use the gcloud log_streaming component to stream the service logs (this job will run in the background because of ```&``` at the end of our command), you will be prompted to install it if haven't already.
+We will use the gcloud log_streaming component to stream the service logs (this job will run in the background because of ```&``` at the end of our command), you will be prompted to install it if you haven't already.
 ```
 gcloud beta run services logs tail $SERVICE --region $REGION --project $PROJECT_ID &
 ```
@@ -92,12 +92,12 @@ Create a file to test with
 touch $EXAMPLE_ID-test
 ```
 
-First, let's do a negative test: copy the file into the root of the folder and make sure our code is NOT triggered (no new service logs should be visible in the terminal)
+First, let's do a negative test: copy the file into the root of the folder and make sure our code is <ins>NOT</ins> triggered (no new service logs should be visible in the terminal)
 ```
 gsutil cp ./$EXAMPLE_ID-test $BUCKET/$EXAMPLE_ID-test
 ```
 
-Now, the REAL test: copy the file into the IN_FOLDER
+Now, the <ins>REAL</ins> test: copy the file into the IN_FOLDER
 ```
 gsutil cp ./$EXAMPLE_ID-test $BUCKET/$IN_FOLDER/$EXAMPLE_ID-test
 ```
