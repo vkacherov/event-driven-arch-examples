@@ -17,7 +17,6 @@ export SERVICE=$EXAMPLE_ID-$PROJECT_ID-service
 export BUCKET_NAME=$EXAMPLE_ID-$PROJECT_ID
 export BUCKET=gs://$BUCKET_NAME
 export IN_FOLDER=$EXAMPLE_ID-inbound
-export OUT_FOLDER=$EXAMPLE_ID-outbound
 ```
 ### gcloud CLI
 Make sure you have the latest ```gcloud``` SDK and components
@@ -53,10 +52,9 @@ gcloud run deploy $SERVICE --region $REGION --no-allow-unauthenticated --source 
 gsutil mb -l $REGION $BUCKET
 ```
 
-Create the required folders
+Create the required folder
 ```
 touch tmp.txt
-gsutil cp -r tmp.txt $BUCKET/${OUT_FOLDER}/tmp.txt
 gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
 ```
 
