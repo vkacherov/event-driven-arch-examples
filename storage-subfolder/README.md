@@ -62,6 +62,11 @@ gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
 ```
 
 ### Create the Eventarc trigger
+Eventarc supports applying a path pattern when filtering. The path pattern syntax allows you to define an expression that matches events. This lets you control the granularity of the Eventarc trigger you are creating, and to capture and act on certain events. For example, we can create a trigger that applies to a single event, such as a change to a specific file or folder, or you can extend the scope of the pattern and create a trigger that applies more broadly.
+ 
+<img src="../images/eventarc-path-patterns.svg"/>
+
+Create the trigger:
 ```
 gcloud eventarc triggers create $EXAMPLE_ID-trigger \
  --location=$REGION \
