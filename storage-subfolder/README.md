@@ -52,7 +52,7 @@ gcloud run deploy $SERVICE --region $REGION --no-allow-unauthenticated --source 
 gsutil mb -l $REGION $BUCKET
 ```
 
-Create the required folder
+Create the required folder (an easy way to do this is to copy a file into the new folder, GCS will create the folder if it does not already exist)
 ```
 touch tmp.txt
 gsutil cp -r tmp.txt $BUCKET/${IN_FOLDER}/tmp.txt
