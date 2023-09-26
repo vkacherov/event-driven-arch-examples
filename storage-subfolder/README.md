@@ -5,13 +5,14 @@ This example shows how to setup an [Eventarc](https://cloud.google.com/eventarc)
 
 ## Setup
 ### Local Environment settings
-Change the EXAMPLE_ID, BUCKET_NAME and REGION as you need:
+Change the EXAMPLE_ID and REGION as you need:
 ```
+export REGION='us-east1'
+export EXAMPLE_ID='eda1'
+
 export PROJECT_ID="$(gcloud config get-value project)"
 export PROJECT_NUMBER="$(gcloud projects describe $(gcloud config get-value project) --format='value(projectNumber)')"
 
-export REGION='us-east1'
-export EXAMPLE_ID='eda1'
 export SERVICE=$EXAMPLE_ID-$PROJECT_ID-service
 export BUCKET_NAME=$EXAMPLE_ID-$PROJECT_ID
 export BUCKET=gs://$BUCKET_NAME
